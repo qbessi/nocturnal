@@ -1,5 +1,6 @@
-/* Nocturnal — single entry point. Import this once, or pull the three files
+/* Nocturnal — single entry point. Import this once, or pull the four files
    individually if you want finer control over ordering/bundling. */
+@import "./fonts.css";
 @import "./tokens.css";
 @import "./base.css";
 @import "./components.css";

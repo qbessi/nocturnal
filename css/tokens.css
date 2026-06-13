@@ -12,9 +12,9 @@
   --ember:#c9b6ff;
   --ember-soft:rgba(201,182,255,0.10);
   --ember-line:rgba(201,182,255,0.32);
-  --serif:"Iowan Old Style","Palatino Linotype","URW Palladio L","Book Antiqua",Palatino,Charter,Georgia,serif;
-  --mono:ui-monospace,"SF Mono","Menlo","Cascadia Mono","JetBrains Mono",Consolas,monospace;
-  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --serif:"Iosevka Etoile","Iowan Old Style","Palatino Linotype","URW Palladio L","Book Antiqua",Palatino,Charter,Georgia,serif;
+  --mono:"Iosevka",ui-monospace,"SF Mono","Menlo","Cascadia Mono","JetBrains Mono",Consolas,monospace;
+  --sans:"Iosevka Aile",-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
   --surface-alt:#15131d;
   --key:#a9a6b3;
 }

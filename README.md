@@ -14,8 +14,11 @@ nocturnal/
 ├─ design.md              The full spec — read this first
 ├─ theme.js               Light/dark switch (OS-aware, persists choice)
 ├─ README.md
+├─ fonts/                 Iosevka superfamily, bundled (woff2): Aile (sans),
+│                         Etoile (serif), Iosevka (mono)
 └─ css/
-   ├─ index.css           Single entry point (@imports the three below)
+   ├─ index.css           Single entry point (@imports the four below)
+   ├─ fonts.css           @font-face for the bundled Iosevka superfamily
    ├─ tokens.css          CSS variables — both themes (the contract)
    ├─ base.css            Reset + body defaults
    └─ components.css      Generic recipes: buttons, inputs, modal, toast,
@@ -26,6 +29,10 @@ nocturnal/
 This is the **curated** kit: only the generic, reusable recipes. Project-
 specific component CSS (budget grids, registers, etc.) was intentionally left
 out so this drops cleanly into any new project.
+
+The Iosevka superfamily (Aile = sans, Etoile = serif, Iosevka = mono) ships
+bundled in `fonts/` and is wired up by `css/fonts.css`, so the type voices
+render as designed — no font install, no CDN.
 
 ## Use it
 
