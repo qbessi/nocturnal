@@ -1,0 +1,35 @@
+/* Nocturnal base — reset + body defaults (design.md §2/§5).
+   Variables only; no hardcoded hex. Requires tokens.css. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+#root {
+  height: 100%;
+}
+
+/* Lists scroll with invisible scrollbars (design.md §5). */
+.list-scroll {
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.list-scroll::-webkit-scrollbar {
+  display: none;
+}

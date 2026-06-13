@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nocturnal — component demo</title>
+
+    <!-- theme.js first so there's no flash of the wrong theme -->
+    <script src="./theme.js"></script>
+
+    <!-- the kit -->
+    <link rel="stylesheet" href="./css/index.css" />
+
+    <!--
+      DEMO-ONLY layout scaffolding. None of this is part of the kit — it only
+      arranges the showcase. Everything prefixed `.demo-`. Edit css/*.css (or
+      the tokens) and refresh to see your changes here.
+    -->
+    <style id="demo-only">
+      .demo-topbar {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 1rem 1.5rem;
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+      }
+      .demo-topbar-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .demo-theme-state {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        color: var(--muted);
+      }
+      .demo-wrap {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 1.5rem 1.5rem 6rem;
+      }
+      .demo-lede {
+        color: var(--muted);
+        max-width: 56ch;
+        margin: 0.5rem 0 0;
+      }
+      .demo-section {
+        margin-top: 2.75rem;
+      }
+      .demo-section-title {
+        margin: 0 0 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--border);
+      }
+      .demo-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        align-items: center;
+      }
+      .demo-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+      }
+      .demo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1rem;
+      }
+      .demo-panel {
+        padding: 1rem;
+        border: 1px dashed var(--border);
+        border-radius: 8px;
+      }
+      .demo-panel-label {
+        display: block;
+        margin-bottom: 0.75rem;
+      }
+      /* Color swatches */
+      .demo-swatches {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 0.6rem;
+      }
+      .demo-swatch {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .demo-swatch-chip {
+        height: 56px;
+      }
+      .demo-swatch-meta {
+        padding: 0.4rem 0.55rem;
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        line-height: 1.5;
+      }
+      .demo-swatch-name {
+        color: var(--text);
+      }
+      .demo-swatch-val {
+        color: var(--muted);
+      }
+      /* Type samples */
+      .demo-type-row {
+        display: flex;
+        align-items: baseline;
+        gap: 1rem;
+        padding: 0.4rem 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .demo-type-tag {
+        flex: 0 0 9rem;
+      }
+      /* List rows */
+      .demo-list {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      .demo-list-main {
+        display: flex;
+        flex-direction: column;
+        gap: 0.1rem;
+        min-width: 0;
+        flex: 1;
+      }
+      .demo-list-sub {
+        font-family: var(--mono);
+        font-size: 0.74rem;
+        color: var(--muted);
+      }
+      .demo-list-end {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+      /* Chat thread */
+      .demo-thread {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        max-width: 420px;
+      }
+      /* Floating menu positioning (the kit leaves position to the app) */
+      .demo-menu-anchor {
+        position: relative;
+        display: inline-block;
+      }
+      .demo-menu-anchor .floating-menu {
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+      }
+      .demo-hidden {
+        display: none !important;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ===================== Top bar ===================== -->
+    <header class="demo-topbar">
+      <span class="wordmark" style="font-size: 1.1rem">Nocturnal</span>
+      <div class="demo-topbar-actions">
+        <span class="demo-theme-state" id="themeState">theme: dark</span>
+        <button class="btn-ghost" id="toastBtn">Show toast</button>
+        <button class="btn-primary" id="themeBtn">Toggle theme</button>
+      </div>
+    </header>
+
+    <main class="demo-wrap">
+      <section>
+        <h1 class="empty-title" style="font-size: 1.6rem; text-align: left">
+          Component demo
+        </h1>
+        <p class="demo-lede">
+          Every generic recipe in the kit, in whichever theme is active. Toggle
+          dark&nbsp;⇄&nbsp;light up top. Edit <code>css/*.css</code> or the
+          tokens and refresh — this page reflects your changes.
+        </p>
+      </section>
+
+      <!-- ===================== Color tokens ===================== -->
+      <section class="demo-section">
+        <h2 class="micro-label demo-section-title">Color tokens</h2>
+        <div class="demo-swatches" id="swatches"></div>
+      </section>
+
+      <!-- ===================== Typography ===================== -->
+      <section class="demo-section">
+        <h2 class="micro-label demo-section-title">Typography &amp; voices</h2>
+        <div>
+          <div class="demo-type-row">
+            <span class="micro-label demo-type-tag">Wordmark</span>
+            <span class="wordmark" style="font-size: 1.4rem">Nocturnal</span>
+          </div>
+          <div class="demo-type-row">
+            <span class="micro-label demo-type-tag">Serif identity</span>
+            <span class="identity" style="font-size: 1.2rem">Eleanor Vance</span>
+          </div>
+          <div class="demo-type-row">
+            <span class="micro-label demo-type-tag">Mono machine</span>
+            <span class="machine">acct_8F3A·2026-06-13·14:42</span>
+          </div>
+          <div class="demo-type-row">
+            <span class="micro-label demo-type-tag">Body</span>
+            <span>The envelope budget must work: give every dollar a job.</span>
+          </div>
+          <div class="demo-type-row">
+            <span class="micro-label demo-type-tag">Micro-label</span>
+            <span class="micro-label">Connected</span>
+          </div>
+          <div class="demo-type-row">
+            <span class="micro-label demo-type-tag">Empty title</span>
+            <span class="empty-title" style="font-size: 1.2rem"
+              >No conversations yet</span
+            >
+          </div>
+        </div>
+        <div class="demo-panel" style="margin-top: 1rem">
+          <span class="micro-label demo-panel-label">Font stacks</span>
+          <div id="fontStacks"></div>
+        </div>
+      </section>
+
+      <!-- ===================== Buttons ===================== -->
+      <section class="demo-section">
+        <h2 class="micro-label demo-section-title">Buttons</h2>
+        <div class="demo-stack">
+          <div class="demo-row">
+            <button class="btn-primary">Primary</button>
+            <button class="btn-ghost">Ghost</button>
+            <button class="btn-danger">Delete account</button>
+            <button class="btn-primary" disabled>Disabled</button>
+          </div>
+          <div class="demo-panel">
+            <span class="micro-label demo-panel-label">Icon buttons</span>
+            <div class="demo-row">
+              <button class="icon-btn" aria-label="Previous">‹</button>
+              <button class="icon-btn" aria-label="Next">›</button>
+              <button class="icon-btn" aria-label="More">⋯</button>
+              <button class="icon-btn" aria-label="Settings">⚙</button>
+              <button class="icon-btn" aria-label="Add">＋</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== Inputs ===================== -->
+      <section class="demo-section">
+        <h2 class="micro-label demo-section-title">Inputs</h2>
+        <div class="demo-grid">
+          <div class="field">
+            <label class="field-label" for="i1">Display name</label>
+            <input class="input" id="i1" placeholder="e.g. Eleanor" />
+            <p class="field-hint">Shown to your budget partner.</p>
+          </div>
+          <div class="field">
+            <label class="field-label" for="i2">Amount</label>
+            <input class="input input-mono" id="i2" value="1,250.00" />
+          </div>
+          <div class="field">
+            <label class="field-label" for="i3">Currency</label>
+            <select class="select" id="i3">
+              <option>USD — US Dollar</option>
+              <option>GBP — Pound Sterling</option>
+              <option>EUR — Euro</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field-label" for="i4">Invite code</label>
+            <input class="input" id="i4" value="" placeholder="Required" />
+            <p class="field-error">This field is required.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== Segmented toggle ===================== -->
+      <section class="demo-section">
+        <h2 class="micro-label demo-section-title">Segmented toggle</h2>
+        <div class="segmented" id="segmented" style="max-width: 320px">
+          <button class="segmented-option segmented-active">Outflow</button>
+          <button class="segmented-option">Inflow</button>
+          <button class="segmented-option">Transfer</button>
+        </div>
+      </section>
+
+      <!-- ===================== Pills ===================== -->
+      <section class="demo-section">
+        <h2 class="micro-label demo-section-title">Pills — semantic tint</h2>
+        <div class="demo-row">
+          <span class="pill pill-positive">+ 420.00</span>
+          <span class="pill pill-negative">− 38.50</span>
+          <span class="pill pill-zero">0.00</span>
+        </div>
+      </section>
+
+      <!-- ===================== Cards ===================== -->
+      <section class="demo-section">
+        <h2 class="micro-label demo-section-title">Cards</h2>
+        <div class="demo-grid">
+          <div class="card">
+            <div class="identity" style="font-size: 1.05rem">Groceries</div>
+            <p class="demo-lede" style="margin-top: 0.4rem">
+              Soft, rounded content surface on <code>--surface</code>.
+            </p>
+            <div class="demo-row" style="margin-top: 0.75rem">
+              <span class="pill pill-positive">+ 128.40</span>
+            </div>
+          </div>
+          <div class="card">
+            <div class="identity" style="font-size: 1.05rem">Rent</div>
+            <p class="demo-lede" style="margin-top: 0.4rem">
+              Cards round (12px); buttons stay sharp.
+            </p>
+            <div class="demo-row" style="margin-top: 0.75rem">
+              <span class="pill pill-negative">− 50.00</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== List rows + avatars + status ===================== -->
+      <section class="demo-section">
+        <h2 class="micro-label demo-section-title">List rows, avatars, status</h2>
+        <div class="demo-list list-scroll">
+          <button class="list-row is-selected">
+            <span class="avatar"><span>E</span></span>
+            <span class="demo-list-main">
+              <span class="identity">Eleanor Vance</span>
+              <span class="demo-list-sub">last seen 14:42</span>
+            </span>
+            <span class="demo-list-end">
+              <span class="status-dot is-online"></span>
+              <span class="micro-label" style="color: var(--green)">Online</span>
+            </span>
+          </button>
+          <button class="list-row">
+            <span class="avatar"><span>M</span></span>
+            <span class="demo-list-main">
+              <span class="identity">Marcus Bell</span>
+              <span class="demo-list-sub">reconnecting…</span>
+            </span>
+            <span class="demo-list-end">
+              <span class="status-dot is-reconnecting"></span>
+              <span class="micro-label">Sync</span>
+            </span>
+          </button>
+          <button class="list-row">
+            <span class="avatar"><span>S</span></span>
+            <span class="demo-list-main">
+              <span class="identity">Savings Pool</span>
+              <span class="demo-list-sub">offline</span>
+            </span>
+            <span class="demo-list-end">
+              <span class="status-dot"></span>
+              <span class="micro-label">Offline</span>
+            </span>
+          </button>
+        </div>
+      </section>
+
+      <!-- ===================== Empty state ===================== -->
+      <section class="demo-section">
+        <h2 class="micro-label demo-section-title">Empty state</h2>
+        <div class="demo-panel">
+          <div class="empty-state">
+            <span class="empty-disc" aria-hidden="true">☾</span>
+            <p class="empty-title">No conversations yet</p>
+            <p class="empty-body">
+              Add a partner to your budget and start tracking together. Their
+              messages and shared categories will appear here.
+            </p>
+            <button class="btn-primary">Invite partner</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== Floating menu ===================== -->
+      <section class="demo-section">
+        <h2 class="micro-label demo-section-title">Floating menu</h2>
+        <div class="demo-row" style="align-items: flex-start; gap: 2rem">
+          <div class="demo-menu-anchor">
+            <button class="btn-ghost" id="menuBtn">Open menu ▾</button>
+            <div class="floating-menu demo-hidden" id="menu">
+              <div class="menu-group-label micro-label">Account</div>
+              <div class="menu-option">Edit details</div>
+              <div class="menu-option">Move money</div>
+              <div class="menu-option">Reconcile</div>
+              <div class="menu-option menu-option-danger">Delete account</div>
+            </div>
+          </div>
+          <div class="demo-panel" style="flex: 1; min-width: 220px">
+            <span class="micro-label demo-panel-label">Always-open (for styling)</span>
+            <div class="floating-menu" style="position: static">
+              <div class="menu-group-label micro-label">Categories</div>
+              <div class="menu-option menu-option-highlight">Groceries</div>
+              <div class="menu-option">Rent</div>
+              <div class="menu-option">Transport</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== Message bubbles ===================== -->
+      <section class="demo-section">
+        <h2 class="micro-label demo-section-title">Message bubbles</h2>
+        <div class="demo-thread">
+          <div class="bubble bubble-in">
+            Did the budget sync land?<span class="bubble-meta">9:41</span>
+          </div>
+          <div class="bubble bubble-out">
+            Yep — pushed it just now.<span class="bubble-meta"
+              >9:42 <span class="read-dot is-read"></span
+            ></span>
+          </div>
+          <div class="bubble bubble-in">
+            Perfect. Reconciling the checking account next.<span
+              class="bubble-meta"
+              >9:43</span
+            >
+          </div>
+          <div class="bubble bubble-out">
+            👍<span class="bubble-meta"
+              >9:43 <span class="read-dot is-delivered"></span
+            ></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== Modal ===================== -->
+      <section class="demo-section">
+        <h2 class="micro-label demo-section-title">Modal</h2>
+        <button class="btn-primary" id="modalBtn">Open modal</button>
+      </section>
+    </main>
+
+    <!-- Modal markup (hidden until triggered) -->
+    <div class="modal-backdrop demo-hidden" id="modalBackdrop">
+      <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <h3 class="modal-title" id="modalTitle">Delete this account?</h3>
+        <div class="modal-content">
+          <p class="modal-body">
+            This permanently removes the account and all of its transactions.
+            This can't be undone.
+          </p>
+          <div class="modal-actions">
+            <button class="btn-ghost" data-close-modal>Cancel</button>
+            <button class="btn-danger" data-close-modal>Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // ---- Theme toggle ----
+      var themeBtn = document.getElementById("themeBtn");
+      var themeState = document.getElementById("themeState");
+      function syncThemeLabel() {
+        themeState.textContent = "theme: " + window.Nocturnal.get();
+      }
+      syncThemeLabel();
+      themeBtn.addEventListener("click", function () {
+        window.Nocturnal.toggle();
+        syncThemeLabel();
+      });
+
+      // ---- Color swatches (read live computed values) ----
+      var tokens = [
+        "--bg", "--surface", "--surface-alt", "--border",
+        "--text", "--muted", "--key",
+        "--accent", "--accent-dim", "--green", "--red",
+        "--msg-out", "--msg-in", "--ember-soft", "--ember-line",
+      ];
+      function paintSwatches() {
+        var cs = getComputedStyle(document.documentElement);
+        var html = tokens
+          .map(function (t) {
+            var val = cs.getPropertyValue(t).trim();
+            return (
+              '<div class="demo-swatch">' +
+              '<div class="demo-swatch-chip" style="background:var(' + t + ')"></div>' +
+              '<div class="demo-swatch-meta">' +
+              '<div class="demo-swatch-name">' + t + "</div>" +
+              '<div class="demo-swatch-val">' + val + "</div>" +
+              "</div></div>"
+            );
+          })
+          .join("");
+        document.getElementById("swatches").innerHTML = html;
+      }
+      paintSwatches();
+      // repaint on toggle so the value labels track the active theme
+      themeBtn.addEventListener("click", paintSwatches);
+
+      // ---- Font stacks (read live; rendered in their own voice) ----
+      var fontVoices = [
+        ["Sans", "--sans"],
+        ["Serif", "--serif"],
+        ["Mono", "--mono"],
+      ];
+      var rootCS = getComputedStyle(document.documentElement);
+      document.getElementById("fontStacks").innerHTML = fontVoices
+        .map(function (v) {
+          var stack = rootCS.getPropertyValue(v[1]).trim().replace(/"/g, "");
+          return (
+            '<div class="demo-type-row">' +
+            '<span class="micro-label demo-type-tag">' + v[0] + "</span>" +
+            '<span style="font-family:var(' + v[1] + ')">' + stack + "</span>" +
+            "</div>"
+          );
+        })
+        .join("");
+
+      // ---- Toast ----
+      document.getElementById("toastBtn").addEventListener("click", function () {
+        var t = document.createElement("div");
+        t.className = "toast";
+        t.textContent = "Changes saved";
+        document.body.appendChild(t);
+        setTimeout(function () {
+          // slide it back off the bottom edge, then remove once that finishes
+          t.classList.add("toast-leaving");
+          t.addEventListener("animationend", function () {
+            t.remove();
+          });
+        }, 2200);
+      });
+
+      // ---- Segmented toggle ----
+      var seg = document.getElementById("segmented");
+      seg.addEventListener("click", function (e) {
+        if (!e.target.classList.contains("segmented-option")) return;
+        seg
+          .querySelectorAll(".segmented-option")
+          .forEach(function (b) {
+            b.classList.remove("segmented-active");
+          });
+        e.target.classList.add("segmented-active");
+      });
+
+      // ---- Floating menu ----
+      var menuBtn = document.getElementById("menuBtn");
+      var menu = document.getElementById("menu");
+      menuBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        menu.classList.toggle("demo-hidden");
+      });
+      document.addEventListener("click", function () {
+        menu.classList.add("demo-hidden");
+      });
+
+      // ---- Modal ----
+      var backdrop = document.getElementById("modalBackdrop");
+      document.getElementById("modalBtn").addEventListener("click", function () {
+        backdrop.classList.remove("demo-hidden");
+      });
+      backdrop.addEventListener("click", function (e) {
+        if (e.target === backdrop || e.target.hasAttribute("data-close-modal")) {
+          backdrop.classList.add("demo-hidden");
+        }
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") backdrop.classList.add("demo-hidden");
+      });
+    </script>
+  </body>
+</html>

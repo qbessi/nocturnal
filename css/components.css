@@ -1,0 +1,642 @@
+/* Nocturnal components — the generic recipes from design.md §7.
+   Reusable across any project. Variables only; the lone hardcoded color is
+   the AA-contrast white ink on the single solid-danger button.
+   Requires tokens.css (variables) + base.css (reset/body). */
+
+/* ============================================================
+   Voices (§3)  — sans is the default; serif = identity, mono = machine
+   ============================================================ */
+
+.wordmark {
+  font-family: var(--sans);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 1.9rem; /* §3 scale — scale down in compact chrome (e.g. 0.92rem in a sidebar) */
+  color: var(--text);
+}
+
+/* The system voice: tiny, bold, uppercase, widely tracked.
+   Rule of thumb: the smaller the text, the wider the tracking. */
+.micro-label {
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+}
+
+/* Serif identity name (people, places, titles) + mono machine output. */
+.identity {
+  font-family: var(--serif);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.machine {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================
+   Buttons (§7)  — sharp chrome (radius 0), scale-down press
+   ============================================================ */
+
+.btn-primary {
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--msg-out-fg);
+  background: var(--accent);
+  border: none;
+  border-radius: 0;
+  padding: 0.7rem 1.25rem;
+  cursor: pointer;
+  transition: opacity 150ms ease, transform 100ms ease;
+}
+.btn-primary:hover {
+  opacity: 0.88;
+}
+.btn-primary:active {
+  transform: scale(0.97);
+}
+.btn-primary:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.btn-ghost {
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 0;
+  padding: 0.7rem 1.25rem;
+  cursor: pointer;
+  transition: color 150ms ease, border-color 150ms ease, transform 100ms ease;
+}
+.btn-ghost:hover {
+  color: var(--text);
+  border-color: var(--text);
+}
+.btn-ghost:active {
+  transform: scale(0.97);
+}
+
+/* Solid red + white ink: ONLY the single confirmed destructive button. */
+.btn-danger {
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: var(--red);
+  border: none;
+  border-radius: 0;
+  padding: 0.7rem 1.25rem;
+  cursor: pointer;
+  transition: opacity 150ms ease, transform 100ms ease;
+}
+.btn-danger:hover {
+  opacity: 0.88;
+}
+.btn-danger:active {
+  transform: scale(0.97);
+}
+
+/* Borderless icon button: muted glyph brightens on hover. */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  min-height: 32px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 150ms ease, transform 100ms ease;
+}
+.icon-btn:hover {
+  color: var(--text);
+}
+.icon-btn:active {
+  transform: scale(0.94);
+}
+.icon-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* ============================================================
+   Inputs (§7)  — --bg fill inside --surface containers, 1px border, radius 0
+   ============================================================ */
+
+.input {
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  padding: 0.6rem 0.85rem;
+  width: 100%;
+}
+.input:focus {
+  outline: none;
+  border-color: var(--accent); /* no glow, no ring */
+}
+.input::placeholder {
+  color: var(--muted);
+}
+.input:disabled {
+  opacity: 0.35;
+}
+
+/* Technical / numeric inputs: mono, right-aligned, tabular figures. */
+.input-mono {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.select {
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  padding: 0.6rem 0.85rem;
+  width: 100%;
+}
+.select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.field-label {
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  color: var(--text);
+}
+.field-error {
+  color: var(--red);
+  font-size: 0.78rem;
+  line-height: 1.4;
+  margin-top: 0.25rem;
+}
+.field-hint {
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.4;
+  margin: 0.25rem 0 0;
+}
+
+/* ============================================================
+   Segmented toggle (§7)  — sharp rectangle, caps labels, accent active
+   ============================================================ */
+
+.segmented {
+  display: flex;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0;
+}
+.segmented-option {
+  flex: 1;
+  font-family: var(--sans);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0.6rem 0.4rem;
+  cursor: pointer;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+.segmented-active {
+  background: var(--accent);
+  color: var(--msg-out-fg);
+}
+
+/* ============================================================
+   Pills — semantic tint recipe (§2)  — never solid green/red fills
+   ============================================================ */
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.82rem;
+  border-radius: 999px;
+  padding: 0.25rem 0.7rem;
+  border: 1px solid transparent;
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+.pill-positive {
+  color: var(--green);
+  background: color-mix(in srgb, var(--green) 12%, transparent);
+  border-color: color-mix(in srgb, var(--green) 38%, transparent);
+}
+.pill-positive:hover {
+  background: color-mix(in srgb, var(--green) 22%, transparent);
+  border-color: color-mix(in srgb, var(--green) 60%, transparent);
+}
+.pill-negative {
+  color: var(--red);
+  background: color-mix(in srgb, var(--red) 10%, transparent);
+  border-color: color-mix(in srgb, var(--red) 32%, transparent);
+}
+.pill-zero {
+  color: var(--muted);
+}
+
+/* ============================================================
+   Cards (§4)  — soft content: rounded, on --surface
+   ============================================================ */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+/* ============================================================
+   Modal (§7)
+   ============================================================ */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+.modal-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  max-width: 420px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+}
+.modal-title {
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text);
+}
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.modal-body {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--text);
+  margin: 0;
+}
+.modal-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+.dialog-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ============================================================
+   Floating menus / dropdowns (§7)
+   ============================================================ */
+
+.floating-menu {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 4px;
+  box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.55);
+  z-index: 150;
+  min-width: 240px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+.menu-group-label {
+  padding: 0.4rem 0.6rem 0.2rem;
+}
+.menu-option {
+  font-size: 0.82rem;
+  color: var(--text);
+  padding: 0.45rem 0.6rem;
+  border-radius: 7px;
+  cursor: pointer;
+}
+.menu-option:hover,
+.menu-option-highlight {
+  background: var(--ember-soft);
+}
+/* Reset a <button> used as a full-width menu row. */
+.menu-option-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  font-family: var(--sans);
+}
+/* Danger item inside a menu: red text + soft red hover. */
+.menu-option-danger {
+  color: var(--red);
+}
+.menu-option-danger:hover {
+  background: color-mix(in srgb, var(--red) 10%, transparent);
+}
+
+/* ============================================================
+   Toast (§7 pill + §6 easeOutQuint settle)
+   ============================================================ */
+
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  pointer-events: none; /* a passive toast must never intercept clicks */
+  transform: translateX(-50%);
+  border-radius: 999px;
+  padding: 0.25rem 1rem;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  z-index: 200;
+  animation:
+    toast-rise 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    toast-fade 280ms ease-out;
+}
+@keyframes toast-rise {
+  from {
+    transform: translate(-50%, 140%);
+  }
+  to {
+    transform: translate(-50%, 0);
+  }
+}
+@keyframes toast-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/* Auto-dismiss reverses the entrance: the toast slides back down off the
+   bottom edge (motion leads), and the fade trails behind it (§6). Add this
+   class, then remove the element on animationend. */
+.toast-leaving {
+  animation:
+    toast-slide-out 260ms cubic-bezier(0.4, 0, 1, 1) forwards,
+    toast-fade-out 180ms ease-out 80ms forwards;
+}
+@keyframes toast-slide-out {
+  from {
+    transform: translate(-50%, 0);
+  }
+  to {
+    transform: translate(-50%, 140%);
+  }
+}
+@keyframes toast-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+/* A CLICKABLE toast: restore chrome + pointer events. */
+.toast-action {
+  pointer-events: auto;
+  cursor: pointer;
+  background: var(--surface-alt);
+  border: 1px solid var(--ember-line);
+}
+.toast-action:hover {
+  background: var(--ember-soft);
+}
+.toast-action:active {
+  transform: translate(-50%, 0) scale(0.97);
+}
+
+/* ============================================================
+   List rows (§7)  — transparent at rest, ember-soft hover, accent select
+   ============================================================ */
+
+.list-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  text-align: left;
+  color: var(--text);
+  cursor: pointer;
+  transition: background-color 150ms ease, transform 100ms ease;
+}
+.list-row:hover {
+  background: var(--ember-soft);
+}
+.list-row:active {
+  transform: scale(0.995);
+}
+.list-row.is-selected {
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+/* ============================================================
+   Avatars (§7)  — solid accent disc, serif initial, circular
+   ============================================================ */
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--msg-out-fg);
+  font-family: var(--serif);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.avatar > span {
+  transform: translateY(0.13em); /* optically center the cap-height glyph */
+}
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ============================================================
+   Empty states (§7)  — disc + italic serif title + muted body, centered
+   ============================================================ */
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+  padding: 2rem 0;
+}
+.empty-disc {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ember-soft);
+  border: 1px solid var(--ember-line);
+  color: var(--accent);
+}
+.empty-title {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.45rem;
+  line-height: 1.3;
+  color: var(--text);
+  margin: 0;
+}
+.empty-body {
+  font-size: 0.88rem;
+  line-height: 1.65;
+  max-width: 320px;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* ============================================================
+   Status indicators (§7)  — 8px dot + matching micro-label
+   ============================================================ */
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--muted); /* waiting / offline */
+  flex-shrink: 0;
+}
+.status-dot.is-online {
+  background: var(--green);
+}
+.status-dot.is-reconnecting {
+  animation: nocturnal-pulse 1.05s ease-in-out infinite;
+}
+@keyframes nocturnal-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.9);
+  }
+}
+
+/* ============================================================
+   Message bubbles (§7)  — for chat-style apps; soft, with a 6px tail
+   ============================================================ */
+
+.bubble {
+  max-width: 75%;
+  width: fit-content;
+  padding: 0.35rem 0.7rem;
+  border-radius: 18px;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+.bubble-out {
+  margin-left: auto;
+  background: var(--msg-out);
+  color: var(--msg-out-fg);
+  border-bottom-right-radius: 6px;
+}
+.bubble-in {
+  margin-right: auto;
+  background: var(--msg-in);
+  color: var(--msg-in-fg);
+  border-bottom-left-radius: 6px;
+}
+.bubble-meta {
+  font-size: 0.7rem;
+  opacity: 0.72;
+  margin-left: 0.4rem;
+}
+/* Read-state dot: muted = sent, --text = delivered, accent = read. */
+.read-dot {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--muted);
+}
+.read-dot.is-delivered {
+  background: var(--text);
+}
+.read-dot.is-read {
+  background: var(--accent);
+}
+
+/* ============================================================
+   Utilities + motion
+   ============================================================ */
+
+.neg {
+  color: var(--red);
+}
+
+/* Honor reduced-motion preferences: things still settle, just instantly. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
