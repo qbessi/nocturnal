@@ -30,10 +30,10 @@ chrome, and soft floating content.
      names, handles, avatar letters, empty-state titles. Italic serif =
      the app speaking warmly ("No conversations yet").
    - *Mono* — the *machine* voice: IDs, fingerprints, timestamps, codes.
-4. **Sharp chrome, soft content.** Buttons, inputs, tabs, and toggles are
-   perfect rectangles (radius 0). Things that float or that you read —
-   menus, modals, message bubbles, cards — get rounded corners. People are
-   circles (avatars).
+4. **Sharp chrome, soft content.** Buttons, inputs, tabs, toggles, and
+   modals/dialogs are perfect rectangles (radius 0). Things that float or
+   that you read — menus, message bubbles, cards — get rounded corners.
+   People are circles (avatars).
 5. **Small caps as the system voice.** Status text, section headers, and
    toasts are tiny, bold, uppercase, and widely tracked. If the *system* is
    talking (CONNECTED, ONLINE, ID COPIED), it whispers in letterspaced caps.
@@ -121,9 +121,9 @@ This is exactly what ships in `css/tokens.css`:
   --ember:#c9b6ff;
   --ember-soft:rgba(201,182,255,0.10);
   --ember-line:rgba(201,182,255,0.32);
-  --serif:"Iowan Old Style","Palatino Linotype","URW Palladio L","Book Antiqua",Palatino,Charter,Georgia,serif;
-  --mono:ui-monospace,"SF Mono","Menlo","Cascadia Mono","JetBrains Mono",Consolas,monospace;
-  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --serif:"Fraunces","Iowan Old Style","Palatino Linotype","URW Palladio L","Book Antiqua",Palatino,Charter,Georgia,serif;
+  --mono:"JetBrains Mono",ui-monospace,"SF Mono","Cascadia Mono","Menlo",Consolas,monospace;
+  --sans:"JetBrains Mono",ui-monospace,"SF Mono","Cascadia Mono","Menlo",Consolas,monospace;
   --surface-alt:#15131d;
   --key:#a9a6b3;
 }
@@ -161,9 +161,11 @@ want tap feedback roll their own color fade or scale pulse.
 
 | Voice | Stack | Android |
 |---|---|---|
-| Sans (UI default) | `-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif` | `FontFamily.Default` |
-| Serif (identity) | `"Iowan Old Style", "Palatino Linotype", "URW Palladio L", "Book Antiqua", Palatino, Charter, Georgia, serif` | `FontFamily.Serif` |
-| Mono (machine) | `ui-monospace, "SF Mono", Menlo, "Cascadia Mono", "JetBrains Mono", Consolas, monospace` | `FontFamily.Monospace` |
+| Sans (UI default) | `"JetBrains Mono", ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace` | `FontFamily.Monospace` |
+| Serif (identity / main headers) | `"Fraunces", "Iowan Old Style", "Palatino Linotype", "URW Palladio L", "Book Antiqua", Palatino, Charter, Georgia, serif` | `FontFamily.Serif` |
+| Mono (machine) | `"JetBrains Mono", ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace` | `FontFamily.Monospace` |
+
+> The UI default and machine voices are now both **JetBrains Mono** (bundled woff2; a local `JetBrainsMono Nerd Font` install with icon glyphs is preferred). Only **main headers / identity** text uses the serif (**Fraunces**). Faces are declared in `css/fonts.css`.
 
 ### Casting rules
 
@@ -207,12 +209,11 @@ labelLarge 13/18 600 (+0.2sp) · labelSmall 11 600 (+1.5sp, for micro-labels).
 
 | Element | Radius |
 |---|---|
-| Buttons, inputs, search fields, tabs, segmented toggles, QR boxes | **0** (sharp) |
+| Buttons, inputs, search fields, tabs, segmented toggles, QR boxes, modals/dialogs | **0** (sharp) |
 | Small interactive insets (icon-button hover, menu items, edit fields) | 4–9px |
 | Floating menus / dropdowns | 8–10px |
 | Compose textarea, emoji picker, file-icon chips | 10–12px |
 | Cards (e.g. request rows), reveal panels | 12–14px |
-| Modals | 16px |
 | Message bubbles | 18px, with the **tail corner at 6px** (bottom-right for own, bottom-left for incoming) |
 | Pills (toast, inline accept/decline chips) | 999px |
 | Avatars, presence dots, play buttons, record dot | 50% (circle) |
@@ -301,9 +302,9 @@ Solid `--accent` disc, circular, with a single serif initial in
 `transform: translateY(0.13em)`. Images fill the disc (`object-fit: cover`).
 
 ### Modals
-Backdrop `rgba(0,0,0,0.6)`. Panel: `--surface`, 1px `--border`, 16px radius,
-1.5rem padding, max 420px. Title 1rem/700 sans. Action rows are a 2-column
-grid with 0.5rem gap.
+Backdrop `rgba(0,0,0,0.6)`. Panel: `--surface`, 1px `--border`, radius 0
+(sharp — dialogs are chrome, not floating content), 1.5rem padding, max
+420px. Title 1rem/700 sans. Action rows are a 2-column grid with 0.5rem gap.
 
 ### Floating menus
 `--surface` bg, `--border` outline, 10px radius, 4px inner padding, items
@@ -349,8 +350,8 @@ muted = sent, white = delivered, accent = read.
 
 1. Drop in the CSS variable block (or Compose palette) from §2.
 2. Set body to the system sans; define `--serif` and `--mono`.
-3. Zero out radii on all buttons/inputs/toggles; round only menus (10px),
-   modals (16px), cards (12–14px), pills (999px), avatars (50%).
+3. Zero out radii on all buttons/inputs/toggles/modals; round only menus
+   (10px), cards (12–14px), pills (999px), avatars (50%).
 4. Default to dark theme; ship light mode as the §2 inversion (accent ↔ ink
    swap) behind `data-theme="light"` — wire it with `theme.js`.
 5. Cast type by voice: serif = names/identity, mono = machine output,

@@ -14,11 +14,11 @@ nocturnal/
 ├─ design.md              The full spec — read this first
 ├─ theme.js               Light/dark switch (OS-aware, persists choice)
 ├─ README.md
-├─ fonts/                 Iosevka superfamily, bundled (woff2): Aile (sans),
-│                         Etoile (serif), Iosevka (mono)
+├─ fonts/                 Bundled woff2: JetBrains Mono (sans + mono),
+│                         Fraunces (serif headers)
 └─ css/
    ├─ index.css           Single entry point (@imports the four below)
-   ├─ fonts.css           @font-face for the bundled Iosevka superfamily
+   ├─ fonts.css           @font-face for the bundled JetBrains Mono + Fraunces
    ├─ tokens.css          CSS variables — both themes (the contract)
    ├─ base.css            Reset + body defaults
    └─ components.css      Generic recipes: buttons, inputs, modal, toast,
@@ -30,9 +30,10 @@ This is the **curated** kit: only the generic, reusable recipes. Project-
 specific component CSS (budget grids, registers, etc.) was intentionally left
 out so this drops cleanly into any new project.
 
-The Iosevka superfamily (Aile = sans, Etoile = serif, Iosevka = mono) ships
-bundled in `fonts/` and is wired up by `css/fonts.css`, so the type voices
-render as designed — no font install, no CDN.
+JetBrains Mono (the UI default + machine voice) and Fraunces (serif headers /
+identity) ship bundled in `fonts/` and are wired up by `css/fonts.css`, so the
+type voices render as designed — no font install, no CDN. If a local
+`JetBrainsMono Nerd Font` is installed, it's preferred (icon glyphs).
 
 ## Use it
 
@@ -82,8 +83,8 @@ light is opt-in:
 - **Three voices.** Serif = names/identity, mono = machine output (IDs,
   numbers, timestamps), sans = everything else. System messages are tiny
   UPPERCASE letterspaced caps (`.micro-label`).
-- **Sharp chrome, soft content.** Buttons/inputs/toggles are radius 0; menus,
-  modals, cards, bubbles, and pills are rounded; avatars and dots are circles.
+- **Sharp chrome, soft content.** Buttons/inputs/toggles/modals are radius 0;
+  menus, cards, bubbles, and pills are rounded; avatars and dots are circles.
 - **Motion settles.** 150ms fades, scale-down presses, easeOutQuint settles.
   No springs. `prefers-reduced-motion` is honored.
 

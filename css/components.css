@@ -293,7 +293,7 @@
 .modal-panel {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: 0; /* sharp chrome — dialogs are not curved */
   padding: 1.5rem;
   max-width: 420px;
   width: 100%;

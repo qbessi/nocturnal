@@ -1,21 +1,25 @@
-/* Nocturnal fonts — the Iosevka superfamily, bundled (no CDN).
-   sans = Iosevka Aile · serif = Iosevka Etoile · mono = Iosevka.
-   woff2 live in ../fonts/ (pack root). local() picks up an OS install first;
-   font-display:swap shows a fallback until the woff2 loads. These faces back
-   the --sans/--serif/--mono tokens in tokens.css. Requires ../fonts/. */
-@font-face { font-family:'Iosevka Aile'; font-style:normal; font-weight:400; font-display:swap;
-  src:local('Iosevka Aile'), url('../fonts/iosevka-aile-latin-400-normal.woff2') format('woff2'); }
-@font-face { font-family:'Iosevka Aile'; font-style:normal; font-weight:600; font-display:swap;
-  src:local('Iosevka Aile Semibold'), local('Iosevka Aile'), url('../fonts/iosevka-aile-latin-600-normal.woff2') format('woff2'); }
-@font-face { font-family:'Iosevka Aile'; font-style:normal; font-weight:700; font-display:swap;
-  src:local('Iosevka Aile Bold'), local('Iosevka Aile'), url('../fonts/iosevka-aile-latin-700-normal.woff2') format('woff2'); }
-@font-face { font-family:'Iosevka Etoile'; font-style:normal; font-weight:400; font-display:swap;
-  src:local('Iosevka Etoile'), url('../fonts/iosevka-etoile-latin-400-normal.woff2') format('woff2'); }
-@font-face { font-family:'Iosevka Etoile'; font-style:normal; font-weight:600; font-display:swap;
-  src:local('Iosevka Etoile Semibold'), local('Iosevka Etoile'), url('../fonts/iosevka-etoile-latin-600-normal.woff2') format('woff2'); }
-@font-face { font-family:'Iosevka Etoile'; font-style:italic; font-weight:400; font-display:swap;
-  src:local('Iosevka Etoile Italic'), url('../fonts/iosevka-etoile-latin-400-italic.woff2') format('woff2'); }
-@font-face { font-family:'Iosevka'; font-style:normal; font-weight:400; font-display:swap;
-  src:local('Iosevka'), url('../fonts/iosevka-latin-400-normal.woff2') format('woff2'); }
-@font-face { font-family:'Iosevka'; font-style:normal; font-weight:600; font-display:swap;
-  src:local('Iosevka Semibold'), local('Iosevka'), url('../fonts/iosevka-latin-600-normal.woff2') format('woff2'); }
+/* Nocturnal fonts — JetBrains Mono (UI/mono voice) + Fraunces (serif headers),
+   bundled (no CDN). woff2 live in ../fonts/ (pack root). local() picks up an
+   OS install first — for JetBrains Mono the patched "JetBrainsMono Nerd Font"
+   (icon glyphs) is preferred when present, then plain JetBrains Mono, then the
+   bundled woff2. font-display:swap shows a fallback until the woff2 loads.
+   These faces back the --sans/--mono/--serif tokens in tokens.css.
+   Requires ../fonts/. */
+
+/* JetBrains Mono — backs --sans and --mono. */
+@font-face { font-family:'JetBrains Mono'; font-style:normal; font-weight:400; font-display:swap;
+  src:local('JetBrainsMono Nerd Font'), local('JetBrains Mono'), url('../fonts/jetbrains-mono-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family:'JetBrains Mono'; font-style:normal; font-weight:600; font-display:swap;
+  src:local('JetBrainsMono Nerd Font SemiBold'), local('JetBrainsMono Nerd Font'), local('JetBrains Mono SemiBold'), url('../fonts/jetbrains-mono-latin-600-normal.woff2') format('woff2'); }
+@font-face { font-family:'JetBrains Mono'; font-style:normal; font-weight:700; font-display:swap;
+  src:local('JetBrainsMono Nerd Font Bold'), local('JetBrainsMono Nerd Font'), local('JetBrains Mono Bold'), url('../fonts/jetbrains-mono-latin-700-normal.woff2') format('woff2'); }
+
+/* Fraunces — backs --serif (main headers, identity names, empty-state italics). */
+@font-face { font-family:'Fraunces'; font-style:normal; font-weight:400; font-display:swap;
+  src:local('Fraunces'), url('../fonts/fraunces-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family:'Fraunces'; font-style:normal; font-weight:600; font-display:swap;
+  src:local('Fraunces SemiBold'), local('Fraunces'), url('../fonts/fraunces-latin-600-normal.woff2') format('woff2'); }
+@font-face { font-family:'Fraunces'; font-style:normal; font-weight:700; font-display:swap;
+  src:local('Fraunces Bold'), local('Fraunces'), url('../fonts/fraunces-latin-700-normal.woff2') format('woff2'); }
+@font-face { font-family:'Fraunces'; font-style:italic; font-weight:400; font-display:swap;
+  src:local('Fraunces Italic'), url('../fonts/fraunces-latin-400-italic.woff2') format('woff2'); }
