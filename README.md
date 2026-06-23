@@ -4,8 +4,7 @@ A portable, framework-agnostic design kit — the visual language extracted for
 reuse across projects. **Dark-first, light mode always shipped.**
 
 > A quiet, lamplit room: near-black indigo surfaces, soft lavender light,
-> old-style serif names, monospace machinery, hard-edged chrome, soft
-> floating content.
+> monospace type throughout, hard-edged chrome, soft floating content.
 
 ## What's here
 
@@ -14,11 +13,10 @@ nocturnal/
 ├─ design.md              The full spec — read this first
 ├─ theme.js               Light/dark switch (OS-aware, persists choice)
 ├─ README.md
-├─ fonts/                 Bundled woff2: JetBrains Mono (sans + mono),
-│                         Fraunces (serif headers)
+├─ fonts/                 Bundled woff2: JetBrains Mono (the single voice)
 └─ css/
    ├─ index.css           Single entry point (@imports the four below)
-   ├─ fonts.css           @font-face for the bundled JetBrains Mono + Fraunces
+   ├─ fonts.css           @font-face for the bundled JetBrains Mono
    ├─ tokens.css          CSS variables — both themes (the contract)
    ├─ base.css            Reset + body defaults
    └─ components.css      Generic recipes: buttons, inputs, modal, toast,
@@ -30,10 +28,12 @@ This is the **curated** kit: only the generic, reusable recipes. Project-
 specific component CSS (budget grids, registers, etc.) was intentionally left
 out so this drops cleanly into any new project.
 
-JetBrains Mono (the UI default + machine voice) and Fraunces (serif headers /
-identity) ship bundled in `fonts/` and are wired up by `css/fonts.css`, so the
-type voices render as designed — no font install, no CDN. If a local
-`JetBrainsMono Nerd Font` is installed, it's preferred (icon glyphs).
+JetBrains Mono is the single type voice — UI, identity, and machine text all
+render in it. It ships bundled in `fonts/` and is wired up by `css/fonts.css`,
+so the type renders as designed — no font install, no CDN. If a local
+`JetBrainsMono Nerd Font` is installed, it's preferred (icon glyphs). The
+`--serif`/`--sans`/`--mono` tokens are kept as aliases (all point at JetBrains
+Mono) so a future swap is one edit.
 
 ## Use it
 
@@ -80,8 +80,10 @@ light is opt-in:
 - **One accent.** Soft Lavender is the only brand color. Green/red are
   semantic signals only — tint them, don't fill with them (except the single
   confirmed destructive button).
-- **Three voices.** Serif = names/identity, mono = machine output (IDs,
-  numbers, timestamps), sans = everything else. System messages are tiny
+- **One font, three roles.** JetBrains Mono everywhere; the `--serif`,
+  `--mono`, and `--sans` tokens all alias to it. Roles still cast text
+  differently by weight/tracking: identity (names), machine output (IDs,
+  numbers, timestamps), and everything else. System messages are tiny
   UPPERCASE letterspaced caps (`.micro-label`).
 - **Sharp chrome, soft content.** Buttons/inputs/toggles/modals are radius 0;
   menus, cards, bubbles, and pills are rounded; avatars and dots are circles.

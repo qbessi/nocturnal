@@ -24,12 +24,14 @@ chrome, and soft floating content.
 2. **One accent, used sparingly.** Soft Lavender (`#c9b6ff`) is the only brand
    color. Everything else is near-black, lilac-white, or gray. Green and red
    exist only as semantic signals (online/success, danger/recording).
-3. **Three type voices, strictly cast.**
-   - *Sans* (system stack) — the default UI voice: buttons, body, labels.
-   - *Serif* (Iowan Old Style / Palatino) — the *identity* voice: people's
-     names, handles, avatar letters, empty-state titles. Italic serif =
-     the app speaking warmly ("No conversations yet").
-   - *Mono* — the *machine* voice: IDs, fingerprints, timestamps, codes.
+3. **One font, three roles.** JetBrains Mono is the only typeface; the
+   `--sans`, `--serif`, and `--mono` tokens all alias to it. Roles still cast
+   text apart by weight, tracking, and style:
+   - *Sans* — the default UI voice: buttons, body, labels.
+   - *Serif* (token name retained) — the *identity* role: people's names,
+     handles, avatar letters, empty-state titles. Italic = the app speaking
+     warmly ("No conversations yet").
+   - *Mono* — the *machine* role: IDs, fingerprints, timestamps, codes.
 4. **Sharp chrome, soft content.** Buttons, inputs, tabs, toggles, and
    modals/dialogs are perfect rectangles (radius 0). Things that float or
    that you read — menus, message bubbles, cards — get rounded corners.
@@ -121,7 +123,7 @@ This is exactly what ships in `css/tokens.css`:
   --ember:#c9b6ff;
   --ember-soft:rgba(201,182,255,0.10);
   --ember-line:rgba(201,182,255,0.32);
-  --serif:"Fraunces","Iowan Old Style","Palatino Linotype","URW Palladio L","Book Antiqua",Palatino,Charter,Georgia,serif;
+  --serif:"JetBrains Mono",ui-monospace,"SF Mono","Cascadia Mono","Menlo",Consolas,monospace;
   --mono:"JetBrains Mono",ui-monospace,"SF Mono","Cascadia Mono","Menlo",Consolas,monospace;
   --sans:"JetBrains Mono",ui-monospace,"SF Mono","Cascadia Mono","Menlo",Consolas,monospace;
   --surface-alt:#15131d;
@@ -162,10 +164,10 @@ want tap feedback roll their own color fade or scale pulse.
 | Voice | Stack | Android |
 |---|---|---|
 | Sans (UI default) | `"JetBrains Mono", ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace` | `FontFamily.Monospace` |
-| Serif (identity / main headers) | `"Fraunces", "Iowan Old Style", "Palatino Linotype", "URW Palladio L", "Book Antiqua", Palatino, Charter, Georgia, serif` | `FontFamily.Serif` |
+| Serif (identity role) | `"JetBrains Mono", ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace` | `FontFamily.Monospace` |
 | Mono (machine) | `"JetBrains Mono", ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace` | `FontFamily.Monospace` |
 
-> The UI default and machine voices are now both **JetBrains Mono** (bundled woff2; a local `JetBrainsMono Nerd Font` install with icon glyphs is preferred). Only **main headers / identity** text uses the serif (**Fraunces**). Faces are declared in `css/fonts.css`.
+> All three voices are now **JetBrains Mono** (bundled woff2; a local `JetBrainsMono Nerd Font` install with icon glyphs is preferred) — it's the only typeface. The `--serif`/`--sans`/`--mono` tokens are kept as aliases so identity/machine/UI text can still be cast apart by weight and tracking, and so a future swap is one edit. The face is declared in `css/fonts.css`.
 
 ### Casting rules
 
