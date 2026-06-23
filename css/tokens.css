@@ -12,12 +12,13 @@
   --ember:#c9b6ff;
   --ember-soft:rgba(201,182,255,0.10);
   --ember-line:rgba(201,182,255,0.32);
-  /* Main headers / identity voice: Fraunces (bundled), native serif fallback. */
-  --serif:"Fraunces","Iowan Old Style","Palatino Linotype","URW Palladio L","Book Antiqua",Palatino,Charter,Georgia,serif;
-  /* Everything else: JetBrains Mono (bundled). The @font-face in fonts.css
-     prefers a local "JetBrainsMono Nerd Font" install (icon glyphs) first. */
+  /* One voice everywhere: JetBrains Mono (bundled). The @font-face in fonts.css
+     prefers a local "JetBrainsMono Nerd Font" install (icon glyphs) first, then
+     plain JetBrains Mono, then the bundled woff2. --serif is kept as an alias so
+     existing .identity / .empty-title rules resolve to JetBrains Mono too. */
   --mono:"JetBrains Mono",ui-monospace,"SF Mono","Cascadia Mono","Menlo",Consolas,monospace;
   --sans:"JetBrains Mono",ui-monospace,"SF Mono","Cascadia Mono","Menlo",Consolas,monospace;
+  --serif:"JetBrains Mono",ui-monospace,"SF Mono","Cascadia Mono","Menlo",Consolas,monospace;
   --surface-alt:#15131d;
   --key:#a9a6b3;
 }
