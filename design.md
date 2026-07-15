@@ -323,6 +323,15 @@ in (specs in §6); auto-dismiss reverses it.
 glyph) · italic serif title (1.45rem) · muted body (0.88rem, line-height
 1.65, max-width 320px), all centered.
 
+### Splash / loading screen
+The boot face shown while an app resolves its start route (first-run vs
+unlock vs home). Full-viewport `--bg`; the `.wordmark` centered in `--text`
+— the near-white ink, **never** the accent (the one brand color stays unused
+here). The wordmark fades in gently (opacity ~280ms ease-out, no motion or
+scale) and settles; the fade is disabled under `prefers-reduced-motion` (the
+mark simply appears). It is a boot/loading state, not a timed delay — hand
+off to the resolved screen as soon as the route is known.
+
 ### Status indicators
 8px circular dot: green = connected, muted = waiting/offline, muted +
 pulse = reconnecting. Paired label is an uppercase micro-label that matches

@@ -40,6 +40,46 @@
 }
 
 /* ============================================================
+   Splash / loading screen (§7)  — the boot face shown while an app
+   resolves its start route. Full-viewport, dark --bg, the .wordmark
+   centered in --text (never the accent — the accent stays unused here).
+   The mark fades in gently (opacity leads, no motion/scale) and settles;
+   the fade is disabled under reduced-motion (the mark just appears).
+   ============================================================ */
+
+.splash {
+  position: fixed;
+  inset: 0;
+  min-height: 100vh;
+  min-height: 100dvh; /* honor the dynamic viewport on mobile chrome */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  z-index: 300;
+}
+/* Reuse .wordmark as-is (already color: var(--text)); only add the entrance. */
+.splash .wordmark {
+  animation: splash-fade 280ms ease-out both;
+}
+@keyframes splash-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/* Reduced-motion: no fade — the wordmark is simply present at boot.
+   (The global reduce block below also collapses this; stated explicitly
+   here so the splash's accessibility contract is self-documenting.) */
+@media (prefers-reduced-motion: reduce) {
+  .splash .wordmark {
+    animation: none;
+  }
+}
+
+/* ============================================================
    Buttons (§7)  — sharp chrome (radius 0), scale-down press
    ============================================================ */
 
