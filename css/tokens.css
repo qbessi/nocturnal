@@ -29,7 +29,8 @@
    incoming bubble. Never put pale lavender text on white. */
 :root[data-theme="light"] {
   --bg:#ffffff; --surface:#f8f4ff; --border:#e0d5f5;
-  --text:#15131d; --muted:#7b778a;
+  /* Muted/key darken on white — the dark-theme grays read washed-out here. */
+  --text:#15131d; --muted:#5f5a6e;
   --accent:#15131d; --accent-dim:#c9b6ff;
   --green:#2ea76d; --red:#d04848;
   --msg-out:#15131d; --msg-in:#e7dfff;
@@ -38,4 +39,5 @@
   --ember-soft:rgba(21,19,29,0.06);
   --ember-line:rgba(21,19,29,0.28);
   --surface-alt:#c9b6ff;
+  --key:#55515f;
 }
