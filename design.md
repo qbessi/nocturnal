@@ -268,17 +268,20 @@ No bounces, no springs, no slide-in pages. Things *settle*. Honor
 ## 7. Component recipes
 
 ### Buttons
-- **Primary:** solid `--accent` bg, `--msg-out-fg` ink, radius 0, weight 600,
+All text buttons are UPPERCASE (tracking 0.08em), weight 600, transparent —
+no background fills, ever; hierarchy comes from the outline.
+- **Primary:** transparent, `--accent` ink, 1px `--accent` outline, radius 0,
   0.7rem × 1.25rem padding. Hover: opacity 0.88. Active: scale(0.97).
-- **Secondary (ghost):** transparent bg, `--muted` text, 1px `--border`
-  outline. Hover: text and border brighten to `--text`.
-- **Danger:** solid `--red` + white text for the final confirm; quiet danger
-  (e.g. "Delete account") is transparent with red text, hover
-  `rgba(red, 0.10)` fill.
+- **Secondary (ghost):** transparent, `--accent` ink, 1px `--accent-dim`
+  outline. Hover: opacity 0.88.
+- **Danger:** transparent, `--red` ink, 1px `--red` outline for the final
+  confirm (the one sanctioned non-accent color).
 - **Disabled:** opacity 0.35.
-- **Icon buttons:** borderless, `--muted` glyph; hover brightens to `--text`
-  (accent only for the "send"-class action); active scale(0.94).
+- **Icon buttons:** borderless, transparent, `--accent` glyph; hover
+  brightens to `--text`; active scale(0.94).
 - **Pills:** radius 999px for inline chips; tinted per the semantic recipe.
+- **Placement:** in dialogs and under input fields, buttons sit in a
+  right-aligned row (flex, `justify-content: flex-end`).
 
 ### Inputs
 - `--bg` fill on `--surface` containers (inverted nesting), 1px `--border`,
