@@ -84,6 +84,7 @@
    ============================================================ */
 
 .btn-primary {
+  width: 100%;
   font-family: var(--sans);
   font-size: 0.875rem;
   font-weight: 600;
@@ -109,6 +110,7 @@
 }
 
 .btn-ghost {
+  width: 100%;
   font-family: var(--sans);
   font-size: 0.875rem;
   font-weight: 600;
@@ -131,6 +133,7 @@
 
 /* Red ink + red outline: ONLY the single confirmed destructive button. */
 .btn-danger {
+  width: 100%;
   font-family: var(--sans);
   font-size: 0.875rem;
   font-weight: 600;

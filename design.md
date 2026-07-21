@@ -84,7 +84,8 @@ incoming bubble. Never put pale lavender text on white.
 | `--surface-alt` | `#c9b6ff` | Lavender as a band/strip color |
 | `--border` | `#e0d5f5` | Lilac hairline |
 | `--text` | `#15131d` | Charcoal Violet |
-| `--muted` | `#7b778a` | Same gray works on white |
+| `--muted` | `#5f5a6e` | Darkened — dark-theme gray reads washed-out on white |
+| `--key` | `#55515f` | Darkened chrome/glyph gray |
 | `--accent` | `#15131d` | **Accent = ink in light mode** |
 | `--accent-dim` | `#c9b6ff` | Lavender becomes the dim/secondary accent |
 | `--green` | `#2ea76d` | Darkened for contrast on white |
@@ -131,7 +132,7 @@ This is exactly what ships in `css/tokens.css`:
 }
 :root[data-theme="light"] {
   --bg:#ffffff; --surface:#f8f4ff; --border:#e0d5f5;
-  --text:#15131d; --muted:#7b778a;
+  --text:#15131d; --muted:#5f5a6e;
   --accent:#15131d; --accent-dim:#c9b6ff;
   --green:#2ea76d; --red:#d04848;
   --msg-out:#15131d; --msg-in:#e7dfff;
@@ -140,6 +141,7 @@ This is exactly what ships in `css/tokens.css`:
   --ember-soft:rgba(21,19,29,0.06);
   --ember-line:rgba(21,19,29,0.28);
   --surface-alt:#c9b6ff;
+  --key:#55515f;
 }
 body { font-family:var(--sans); background:var(--bg); color:var(--text); }
 ```
@@ -268,8 +270,9 @@ No bounces, no springs, no slide-in pages. Things *settle*. Honor
 ## 7. Component recipes
 
 ### Buttons
-All text buttons are UPPERCASE (tracking 0.08em), weight 600, transparent —
-no background fills, ever; hierarchy comes from the outline.
+All text buttons are UPPERCASE (tracking 0.08em), weight 600, full-width
+(`width: 100%`), transparent — no background fills, ever; hierarchy comes
+from the outline. Icon buttons keep their intrinsic 32px size.
 - **Primary:** transparent, `--accent` ink, 1px `--accent` outline, radius 0,
   0.7rem × 1.25rem padding. Hover: opacity 0.88. Active: scale(0.97).
 - **Secondary (ghost):** transparent, `--accent` ink, 1px `--accent-dim`
@@ -280,8 +283,8 @@ no background fills, ever; hierarchy comes from the outline.
 - **Icon buttons:** borderless, transparent, `--accent` glyph; hover
   brightens to `--text`; active scale(0.94).
 - **Pills:** radius 999px for inline chips; tinted per the semantic recipe.
-- **Placement:** in dialogs and under input fields, buttons sit in a
-  right-aligned row (flex, `justify-content: flex-end`).
+- **Placement:** in dialogs and under input fields, buttons sit in a flex
+  row; being full-width, side-by-side buttons share the row equally.
 
 ### Inputs
 - `--bg` fill on `--surface` containers (inverted nesting), 1px `--border`,
