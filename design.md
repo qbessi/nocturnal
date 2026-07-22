@@ -274,7 +274,8 @@ All text buttons are UPPERCASE (tracking 0.08em), weight 600, full-width
 (`width: 100%`), transparent — no background fills, ever; hierarchy comes
 from the outline. Icon buttons keep their intrinsic 32px size.
 - **Primary:** transparent, `--accent` ink, 1px `--accent` outline, radius 0,
-  0.7rem × 1.25rem padding. Hover: opacity 0.88. Active: scale(0.97).
+  1.125rem × 1.25rem padding (tall ~55px button). Hover: opacity 0.88.
+  Active: scale(0.97).
 - **Secondary (ghost):** transparent, `--accent` ink, 1px `--accent-dim`
   outline. Hover: opacity 0.88.
 - **Danger:** transparent, `--red` ink, 1px `--red` outline for the final
