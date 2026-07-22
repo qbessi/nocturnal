@@ -54,7 +54,7 @@
   background: transparent;
   border: 1px solid var(--accent);
   border-radius: 0;
-  padding: 0.7rem 1.25rem;
+  padding: 1.125rem 1.25rem;
   cursor: pointer;
   transition: opacity 150ms ease, transform 100ms ease;
 }
@@ -80,7 +80,7 @@
   background: transparent;
   border: 1px solid var(--accent-dim);
   border-radius: 0;
-  padding: 0.7rem 1.25rem;
+  padding: 1.125rem 1.25rem;
   cursor: pointer;
   transition: opacity 150ms ease, transform 100ms ease;
 }
@@ -103,7 +103,7 @@
   background: transparent;
   border: 1px solid var(--red);
   border-radius: 0;
-  padding: 0.7rem 1.25rem;
+  padding: 1.125rem 1.25rem;
   cursor: pointer;
   transition: opacity 150ms ease, transform 100ms ease;
 }
@@ -712,6 +712,8 @@
   align-items: center;
   gap: 0.75rem;
   padding: 0.7rem 0.85rem;
+  /* Non-active cards recede to the dark base surface; the selected card's
+     muted-gray fill (below) is the thing that stands out. */
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -722,7 +724,9 @@
   border-color: var(--muted);
 }
 .option-card:has(input:checked) {
-  background: var(--accent-dim);
+  /* Selected = a stronger muted gray than the resting 30% (not accent purple);
+     the accent border + accent radio dot below carry the "selected" signal. */
+  background: color-mix(in srgb, var(--muted) 48%, var(--surface));
   border-color: var(--accent);
 }
 .option-card input[type="radio"],
@@ -796,7 +800,8 @@
   color: var(--text);
 }
 .nav-item.is-active {
-  background: var(--accent-dim);
+  /* Opaque muted-gray fill (see .option-card); accent ink + icon stay the cue. */
+  background: color-mix(in srgb, var(--muted) 30%, var(--surface));
   color: var(--accent);
 }
 .nav-item.is-active svg {
